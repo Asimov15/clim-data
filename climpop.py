@@ -7,7 +7,7 @@ from os import listdir
 from os.path import isfile, join
 
 file_count = 0
-max_files = 100
+max_files = 200
 cnx = mysql.connector.connect(user='root', password='happy1', database='ghcndata')
 
 cursor = cnx.cursor()
