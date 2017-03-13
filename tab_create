@@ -1,0 +1,8 @@
+CREATE TABLE `climate` (
+  `station` char(11) DEFAULT NULL,
+  `rec_date` date DEFAULT NULL,
+  `rec_type` char(1) DEFAULT NULL,
+  `measurement` float DEFAULT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2264714 DEFAULT CHARSET=latin1 
