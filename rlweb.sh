@@ -1,0 +1,4 @@
+echo start
+ionice -c3 rsync -avgSH --delete --delete-excluded --exclude-from='dzexlist' --ignore-errors --delete-after \
+--no-perms --no-owner --no-group . /var/www/html/clim-data/
+echo end
