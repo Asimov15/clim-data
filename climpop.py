@@ -8,7 +8,7 @@ from os.path import isfile, join
 from datetime import date
 
 file_count = 0
-max_files = 10
+max_files = 200
 j = 0
 k = 0
 cnx = mysql.connector.connect(user='root', password='happy1', database='ghcndata')
@@ -35,7 +35,7 @@ for file_name in onlyfiles:
     
     file_count += 1
     if file_count % 50 ==0:
-        print file_name
+        print file_count
     if file_count > max_files:
         # only look at specified number of files
         break 
@@ -69,11 +69,13 @@ for file_name in onlyfiles:
                     char_inc += 8                        # move to next temperature
 
                     if temp > -1000.0 and temp < 600 and temp != 0:
-                        m_date = datetime.date(int(year), int(month), day)
-                        data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "'), "
-                      
                         i += 1;
-                        if i >= 49:
+                        m_date = datetime.date(int(year), int(month), day)
+                        if i < 499:
+                            data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "'), "
+                      
+           
+                        if i >= 499:
                             data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "');"
                             add_clim = mystr + data_clim
    

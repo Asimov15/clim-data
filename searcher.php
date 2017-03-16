@@ -52,7 +52,9 @@
                         echo("<br/>");
                         
                         //execute the SQL query and return records
-                        $result = mysql_query("SELECT field1, station_name FROM station WHERE station_name LIKE '%" . $location . "%';");
+                        
+                        $q = "SELECT field1, station_name FROM station WHERE station_name LIKE '%" . $location . "%';";
+                        $result = mysql_query($q);
                         
                         $row_count = mysql_num_rows($result);
                         

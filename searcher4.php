@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en'>
+    
+	<head>		
+        <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+        <meta http-equiv='refresh' content='900'/>
+        <link rel='stylesheet' type='text/css' href='searcher.css'/>
+		<title>Search And Graph Climate Data</title>           		
+	</head>	 
+   
+    <body>        
+        <div id='header'>
+            <h1 class='dz'>Graph Climate Data</h1>
+        </div>
+    
+        <form action='searcher4.php' method='get'>
+            <div id='wrapper'>
+                <div id='outer1'>
+                </div>
+                <div id='outer2'>     
+                </div>
+                <div id='outer3'>                    
+                </div>
+                <div id='footer'>
+                </div>
+            </div>   <!-- end #wrapper -->	
+        </form>
+    </body>
+    
+</html>
