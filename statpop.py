@@ -1,7 +1,7 @@
 #!/usr/bin/python
-print "0"
+
 import mysql.connector
-print "1"
+
 latitude = 0.0
 cnx = mysql.connector.connect(user='root', password='happy1', database='ghcndata')
 print "2"
