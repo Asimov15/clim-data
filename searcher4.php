@@ -6,25 +6,50 @@
         <meta http-equiv='refresh' content='900'/>
         <link rel='stylesheet' type='text/css' href='searcher.css'/>
 		<title>Search And Graph Climate Data</title>           		
-	</head>	 
-   
-    <body>        
-        <div id='header'>
-            <h1 class='dz'>Graph Climate Data</h1>
-        </div>
-    
-        <form action='searcher4.php' method='get'>
-            <div id='wrapper'>
-                <div id='outer1'>
-                </div>
-                <div id='outer2'>     
-                </div>
-                <div id='outer3'>                    
-                </div>
-                <div id='footer'>
-                </div>
-            </div>   <!-- end #wrapper -->	
-        </form>
+	</head>	
+    <?php 
+        function RandomString()
+        {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $randstring = '';
+            for ($i = 0; $i < 10; $i++) 
+            {
+                $randstring = $randstring . $characters[rand(0, strlen($characters) - 1)];
+            };
+
+            return $randstring;
+        };			
+        $outfn = RandomString() . ".png"; 
+        
+        $station_id = 'ASN00031037';  #default
+        if (isset($_GET["submit"])) 
+        {
+            if (strlen($_GET['station_id']) > 0)
+            {
+                $station_id = $_GET['station_id'];
+            }
+            echo "Got station id\n";
+        }
+        else
+        {
+            echo "Failed to get station id\n";
+        }
+        
+        $cmd = '/usr/bin/python clim-av.py -f ' . $outfn . ' -s ' . $station_id;
+        echo $cmd;
+        echo "\n";
+        $a = '999';
+        exec($cmd, $a);
+        
+        echo $a[0];
+        echo "\n";        
+        
+        echo "<body>        
+                <div id='header'>
+                    <h1 class='dz'>Graph Climate Data</h1>
+                </div>";
+        echo "<img class='dz' alt='Climate Data' src='images/" . $outfn . "'/>";
+    ?>
     </body>
     
 </html>

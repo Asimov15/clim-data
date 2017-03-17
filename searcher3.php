@@ -23,7 +23,8 @@
         $selected = mysql_select_db("ghcndata", $dbhandle) or die("Could not select ghcndata database.");
         
         //execute the SQL query and return records
-        $result = mysql_query("SELECT field1, station_name FROM station WHERE station_name LIKE '%" . $location . "%';");
+        $cmd = "SELECT field1, station_name FROM station WHERE station_name LIKE '%" . $location . "%' AND temperatures = '1';";
+        $result = mysql_query($cmd);
         
         $row_count = mysql_num_rows($result);
                 
@@ -49,12 +50,12 @@
         <div id='header'>
             <h1 class='dz'>Graph Climate Data</h1>
         </div>
-        <form action='searcher4.php' method='get'>
+        <form action='searcher4.php?' method='get'>
             <div id='wrapper'>
                 <div id='outer1'>Location:</div>
                 <div id='outer2'>     
                 <?php
-                    echo "<select>";
+                    echo "<select name='station_id'>";
                     
                     //fetch tha data from the database
                     while ($row = mysql_fetch_array($result)) 

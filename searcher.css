@@ -1,7 +1,7 @@
 div 
 {
     /* inset shadow for visual aid only: allow to easily see the div boundaries */
-    box-shadow: 0 0 1px black inset;
+/*    box-shadow: 0 0 1px black inset; */
 }
 
 #header
@@ -25,7 +25,7 @@ div
 
 h1.dz
 {
-	border: 5px solid black;
+/*	border: 5px solid black; */
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -84,7 +84,7 @@ h1.dz
 
 form
 {
-    border: 5px solid blue;	
+    /* border: 5px solid blue;	*/
     margin-top: 5px;
     margin-bottom: 5px;
     padding-top: 5px;
@@ -97,15 +97,13 @@ form
 
 body
 {
-	border: 5px solid black;
+	/* border: 5px solid black; */
 	margin: 0px;
 	background-color: grey;
 	width: 1200px;
 	padding: 5px;
 	
 }
-
-
 
 #footer 
 {
@@ -147,68 +145,9 @@ div.validate2
     height: auto;
 }
 
-
-body
-{
-	border: 5px solid black;
-	margin: 0px;
-	background-color: grey;
-	width: 1200px;
-	padding: 30px;
-	
-}
-
-span.maxtemp
-{
-	text-align: left;
-	padding: 20 px;
-	margin: 30 px;
-	font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
-	font-size: 20px;
-	width: 250px;
-	display: inline-block;
-}
-
-span.mintemp
-{	
-	text-align: left;
-	padding: 20 px;
-	margin: 30 px;
-	font-family: Arial,Helvetica Neue,Helvetica,sans-serif; 
-	font-size: 20px;
-	width: 250px;
-	display: inline-block;
-}
-
-span.maxtempd
-{
-	text-align: right;
-	padding: 20 px;
-	margin-left: 700 px;
-	font-family: "Lucida Console", Monaco, monospace; 
-	font-size: 19px;
-/*
-	float: right;
-*/
-}
-
-span.mintempd
-{
-	text-align: right;
-	padding: 20 px;
-	margin: 30 px;
-	font-family: "Lucida Console", Monaco, monospace;
-	font-size: 19px;
-}
-
 select
 {    
     padding: 20 px;
     margin: 30 px;
 }
-
-/*input
-{
-	float: left;
-}*/
 
