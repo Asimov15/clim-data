@@ -53,14 +53,14 @@ outfn           = args.outfile
 
 cnx = mysql.connector.connect(user='root', password='happy1', database='ghcndata')
 cursor = cnx.cursor()
-get_station = ("SELECT station_name FROM station WHERE field1 = '" + station + "';")
+get_station = ("SELECT station_name, latitude, longitude FROM station WHERE field1 = '" + station + "';")
 
 cursor.execute(get_station)
 
-station_names = []
+station_data = []
 
-for (station_name) in cursor:
-    station_names.append(station_name)
+for (record) in cursor:
+    station_data.append(record)
 
 #print station_names
 
@@ -193,6 +193,7 @@ font = {
             'weight' : 'bold',
             'size'   : 12
         }
+        
 fig2.add_subplot(111).set_ylabel(u'Temperature {0}C\n'.format(degree_sign), fontsize=22, weight='heavy', va='baseline')
 fig2.add_subplot(111).set_xlabel('\nMonth', fontsize=22, weight='heavy', ha='center')
 fig2.add_subplot(111).set_xticklabels(month_labs)
@@ -200,10 +201,10 @@ fig2.add_subplot(111).set_xticklabels(month_labs)
 #figure
 matplotlib.rc('font', **font)
 fig2.subplots_adjust(left=0.05, bottom=0.1, right=0.99, top=0.92, wspace=0.2, hspace=0.0)
-fig2.add_subplot(111).set_title("Average Temperatures By Day From Station At {0}\n".format(station_names[0][0]), fontsize=22, weight='heavy')
+the_title = "Average Temperatures By Day From Station At {0} Latitude = {1}, Longitude = {2}\n".format((station_data[0][0]).strip(), station_data[0][1], station_data[0][2])
+fig2.add_subplot(111).set_title(the_title, fontsize=22, weight='heavy')
 
 #saving
-
 image = "/var/www/html/clim-data/images/" + outfn
 
 #print image

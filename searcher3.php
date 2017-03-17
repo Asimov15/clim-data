@@ -10,8 +10,6 @@
 
     if (strlen($location) > 0)
     {
-        echo $location;        
-        
         $username = "root";
         $password = "happy1";
         $hostname = "localhost"; 
@@ -42,7 +40,7 @@
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
         <meta http-equiv='refresh' content='900'/>
-        <link rel='stylesheet' type='text/css' href='searcher.css'/>
+        <link rel='stylesheet' type='text/css' href='searcher3.css'/>
 		<title>Search And Graph Climate Data</title>           		
 	</head>	 
    
@@ -69,7 +67,10 @@
             
                 ?>
                 </div>
-                <div id='outer3'>
+                <div id='outer3'>  
+                    (Select Weather Station)
+                </div>
+                <div id='outer4'>
                     <input type='submit' value='submit' name='submit'/>
                 </div>
                 <div id='footer'>

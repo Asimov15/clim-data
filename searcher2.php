@@ -8,7 +8,7 @@
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
         <meta http-equiv='refresh' content='900'/>
-        <link rel='stylesheet' type='text/css' href='searcher.css'/>
+        <link rel='stylesheet' type='text/css' href='searcher2.css'/>
 		<title>Search And Graph Climate Data</title>           		
 	</head>	 
    
@@ -33,10 +33,13 @@
             <div id='wrapper'>
                 <div id='outer1'>Location:</div>
                 <div id='outer2'>
-                    <input name='location' value='' type='text'/>
+                    <input name='location' value='' type='text'/>                    
                 </div>
-                <div id='outer3'>                    
-                    <input type='submit' value='submit' name='submit'/> 
+                <div id='outer3'>
+                    Enter the first few characters of weather station.
+                </div>
+                <div id='outer4'>                    
+                    <input type='submit' value='Submit' name='submit'/> 
                 </div>
                 <div id='footer'>
                 </div>

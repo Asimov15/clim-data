@@ -27,8 +27,7 @@
             if (strlen($_GET['station_id']) > 0)
             {
                 $station_id = $_GET['station_id'];
-            }
-            echo "Got station id\n";
+            }            
         }
         else
         {
@@ -36,13 +35,8 @@
         }
         
         $cmd = '/usr/bin/python clim-av.py -f ' . $outfn . ' -s ' . $station_id;
-        echo $cmd;
-        echo "\n";
-        $a = '999';
-        exec($cmd, $a);
         
-        echo $a[0];
-        echo "\n";        
+        exec($cmd, $a);        
         
         echo "<body>        
                 <div id='header'>
