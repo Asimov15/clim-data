@@ -2,7 +2,8 @@
 /* David Zuccaro 14/03/2017 */
 
     $c = 0;
-    $location = "";
+    $location = "GEELONG";  //default
+    
     if (isset($_GET['submit'])) 
     {
         $location = $_GET['location'];                
@@ -21,7 +22,8 @@
         $selected = mysql_select_db("ghcndata", $dbhandle) or die("Could not select ghcndata database.");
         
         //execute the SQL query and return records
-        $cmd = "SELECT field1, station_name FROM station WHERE station_name LIKE '%" . $location . "%' AND temperatures = '1';";
+        $cmd = "SELECT station.field1, station.station_name, country.code, country.name FROM station INNER join country ON station.country_code = country.code WHERE station_name LIKE '%" . $location . "%' AND temperatures = 1;";
+ 
         $result = mysql_query($cmd);
         
         $row_count = mysql_num_rows($result);
@@ -30,7 +32,12 @@
         {            
             header("Location: http://localhost/clim-data/searcher2.php?message=Please refine your search");
             exit;
-        }       
+        }
+        if ($row_count <= 0)
+        {            
+            header("Location: http://localhost/clim-data/searcher2.php?message=No matching stations found");
+            exit;
+        }
     }
 ?>
 
@@ -40,33 +47,55 @@
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
         <meta http-equiv='refresh' content='900'/>
-        <link rel='stylesheet' type='text/css' href='searcher3.css'/>
-		<title>Search And Graph Climate Data</title>           		
+        <link rel='stylesheet' type='text/css' href='global.css'/>
+        <link rel='stylesheet' type='text/css' href='searcher3.css'/>        
+		<title>Search And Graph Climate Data</title>        
 	</head>	 
    
     <body>        
         <div id='header'>
             <h1 class='dz'>Graph Climate Data</h1>
         </div>
+         <div id='message'>
+             &nbsp;        
+        </div>
         <form action='searcher4.php?' method='get'>
             <div id='wrapper'>
                 <div id='outer1'>Location:</div>
                 <div id='outer2'>     
                 <?php
-                    echo "<select name='station_id'>";
-                    
-                    //fetch tha data from the database
-                    while ($row = mysql_fetch_array($result)) 
+                    $spaces_to_add = 5;
+                    $biggest_length = 0;
+                    $row = array();
+                    echo "<select name='station_id'>\n";
+                    $x = 0;
+                     //fetch tha data from the database
+                    while ($row[$x] = mysql_fetch_array($result)) 
+                    {                        
+                        if (strlen($row[$x]{'station_name'}) > $biggest_length)
+                        {
+                            $biggest_length = strlen($row[$x]{'station_name'});
+                        };
+                        $x = $x + 1;
+                    };
+                   
+                    $y = 0;
+                    for ($y = 0; $y < $x; $y++)
                     {
-                        echo "<option value='" . $row{'field1'} . "'>" . $row{'station_name'} . "</option>";
+                        $z = $biggest_length - strlen(trim($row[$y]{'station_name'}));                                            
+                        
+                        $picker = $row[$y]{'station_name'} . str_repeat('&nbsp;', $z) . $row[$y]{'name'};
+                        echo "                      <option value='" . $row[$y]{'code'} . $row[$y]{'field1'} . "'>" . $picker . "</option>\n";
                     }
-                    echo "</select>";
+                    
+                    echo "                  </select>\n";
                 
                     //close the connection
                     mysql_close($dbhandle);
             
                 ?>
                 </div>
+            
                 <div id='outer3'>  
                     (Select Weather Station)
                 </div>
@@ -74,8 +103,11 @@
                     <input type='submit' value='submit' name='submit'/>
                 </div>
                 <div id='footer'>
-                </div>
+                     
+                </div>                
             </div><!-- end #wrapper -->	
+                        
         </form>
+        <a class='search' href='searcher2.php'>Search Again</a>
     </body>
 </html>

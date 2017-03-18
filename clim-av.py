@@ -5,16 +5,12 @@
 # graph climate chart
 
 import matplotlib
+import matplotlib.pyplot as plt
 #matplotlib.use('TkAgg') 
-#import os
+
 import matplotlib.ticker as ticker
 
-import pylab
-
 import numpy as np
-
-#from os import listdir
-#from os.path import isfile, join
 
 import datetime
 
@@ -22,49 +18,60 @@ import mysql.connector
 
 import argparse
 
-#os.system("touch /home/dz/test1")
+degree_sign 	    = unichr(176)
+char_inc            = 0
+temp_tots           = []
+avesl               = np.zeros(365)
+avesh               = np.zeros(365)
+mypath              = "/srv/clim-data/ghcnd_temp/"
+temp                = 0.0
 
-degree_sign 	= unichr(176)
-char_inc        = 0
-temp_tots       = []
-avesl           = np.zeros(365)
-avesh           = np.zeros(365)
-mypath          = "/home/dz/ghcnd_all/"
-temp            = 0.0
-
-month_days      = (31,28,31,30,31,30,31,31,30,31,30,31)
-start_temp      = 0
-end_temp        = 0
-
+month_days          = (31,28,31,30,31,30,31,31,30,31,30,31)
+start_temp          = 0
+end_temp            = 0
 
 month_tick_mark_loc = np.zeros(12)
 grids               = np.zeros(12)
 
-parser 					= argparse.ArgumentParser()
-parser.add_argument("-s",  "--station",  default="ASN00031037", help="ghcn weather station code")
-parser.add_argument("-f",  "--outfile",  default="test.png",    help="the output filename")
+parser 				= argparse.ArgumentParser()
+
+parser.add_argument("-s",  "--station",  default="N00076077", help="ghcn weather station code")
+parser.add_argument("-f",  "--outfile",  default="test.png" , help="the output filename"      )
 
 args = parser.parse_args()
 
-station         = args.station
-file_name       = station + ".dly"
+file_name       = args.station + ".dly"
 fullpath        = mypath + file_name
 outfn           = args.outfile
 
 cnx = mysql.connector.connect(user='root', password='happy1', database='ghcndata')
-cursor = cnx.cursor()
-get_station = ("SELECT station_name, latitude, longitude FROM station WHERE field1 = '" + station + "';")
+cursor1 = cnx.cursor(buffered=True)
+cursor2 = cnx.cursor()
+cmd = "SELECT station_name, latitude, longitude FROM station WHERE field1 = '" + args.station[2:] + "' AND country_code = '" + args.station[:2] + "';"
+print cmd
+get_station = (cmd)
 
-cursor.execute(get_station)
+cursor1.execute(get_station)
 
 station_data = []
 
-for (record) in cursor:
+for (record) in cursor1:
     station_data.append(record)
 
-#print station_names
+print station_data
 
-cursor.close()
+cmd = "SELECT name FROM country WHERE code = '" + args.station[:2] + "';"
+get_country = (cmd)
+
+cursor2.execute(get_country)
+
+country_data = []
+
+for (record) in cursor2:
+    country_data.append(record)
+
+cursor1.close()
+cursor2.close()
 cnx.close()
 
 def num_days(month_no):    
@@ -133,7 +140,7 @@ with open(fullpath, "r") as this_file:
             for col in range(month_days[this_month - 1]):      # scan thru days on each line  
   
                 start_temp = 21 + char_inc
-                end_temp = 21 + char_inc + 5             # isolate temp reading
+                end_temp   = 21 + char_inc + 5             # isolate temp reading
 
                 if end_temp < len(line):                 # check for end of line (days < 31)
                     temp = float(line[start_temp:end_temp])
@@ -157,13 +164,13 @@ for x in temp_tots:
 # create graph
 
 #lines
-fig2 = matplotlib.pyplot.figure(figsize=(22.0, 10.0)) # The size of the figure is specified as (width, height) in inches
+fig2 = plt.figure(figsize=(22.0, 10.0)) # The size of the figure is specified as (width, height) in inches
 
 # 7 degree line of best fit
-l1 = fig2.add_subplot(111).plot(range(365), np.poly1d(np.polyfit(range(365), avesh, 7))(range(365)), 
+l1 = fig2.add_subplot(111).plot(range(365), np.poly1d(np.polyfit(range(365), avesh, 5))(range(365)), 
                                 label="Maximums", lw=10, color='red')
 
-l2 = fig2.add_subplot(111).plot(range(365), np.poly1d(np.polyfit(range(365), avesl, 7))(range(365)), 
+l2 = fig2.add_subplot(111).plot(range(365), np.poly1d(np.polyfit(range(365), avesl, 5))(range(365)), 
                                 label="Minimums", lw=10, color='blue')
                                 
 l3 = fig2.add_subplot(111).plot(range(365), avesh, 'ro')
@@ -198,10 +205,17 @@ fig2.add_subplot(111).set_ylabel(u'Temperature {0}C\n'.format(degree_sign), font
 fig2.add_subplot(111).set_xlabel('\nMonth', fontsize=22, weight='heavy', ha='center')
 fig2.add_subplot(111).set_xticklabels(month_labs)
 
-#figure
+#position canvas
+fig2.subplots_adjust(left=0.05, bottom=0.1, right=0.99, top=0.89, wspace=0.2, hspace=0.0)
+
+#set title
 matplotlib.rc('font', **font)
-fig2.subplots_adjust(left=0.05, bottom=0.1, right=0.99, top=0.92, wspace=0.2, hspace=0.0)
-the_title = "Average Temperatures By Day From Station At {0} Latitude = {1}, Longitude = {2}\n".format((station_data[0][0]).strip(), station_data[0][1], station_data[0][2])
+firstp = "Average Temperatures By Day From Station At "
+md1 = (station_data[0][0]).strip()
+md2 = station_data[0][1]
+md3 = station_data[0][2]
+md4 = country_data[0][0]
+the_title = firstp + "{0}, {3}\n (Latitude = {1}, Longitude = {2})\n".format(md1, md2, md3, md4)
 fig2.add_subplot(111).set_title(the_title, fontsize=22, weight='heavy')
 
 #saving
@@ -209,16 +223,3 @@ image = "/var/www/html/clim-data/images/" + outfn
 
 #print image
 fig2.savefig(image)
-
-print 0
-
-#os.system("touch /home/dz/test2")
-#os.system("beep -f 555 -l 460")
-
-#mng = pylab.get_current_fig_manager()
-#mng.resize(*mng.window.maxsize())
-
-#pylab.show()
-#print outfn
-
-#pylab.savefig('/var/www/html/clim-data/test.png')

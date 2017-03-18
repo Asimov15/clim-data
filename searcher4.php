@@ -4,7 +4,9 @@
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
         <meta http-equiv='refresh' content='900'/>
-        <link rel='stylesheet' type='text/css' href='searcher.css'/>
+        <link rel='stylesheet' type='text/css' href='global.css'/>
+        <link rel='stylesheet' type='text/css' href='searcher4.css'/>    
+        <link rel='shortcut icon' href='Dapino-Summer-Holiday-Sun.ico' type='image/x-icon'>
 		<title>Search And Graph Climate Data</title>           		
 	</head>	
     <?php 
@@ -28,22 +30,25 @@
             {
                 $station_id = $_GET['station_id'];
             }            
-        }
-        else
-        {
-            echo "Failed to get station id\n";
-        }
+            else
+            {
+                echo "Failed to get station id\n";
+            }
+        }        
         
         $cmd = '/usr/bin/python clim-av.py -f ' . $outfn . ' -s ' . $station_id;
         
         exec($cmd, $a);        
         
         echo "<body>        
-                <div id='header'>
-                    <h1 class='dz'>Graph Climate Data</h1>
-                </div>";
-        echo "<img class='dz' alt='Climate Data' src='images/" . $outfn . "'/>";
-    ?>
+                    <div id='header'>
+                        <h1 class='dz'>Graph Climate Data</h1>
+                    </div>";                    
+        echo "          <img class='dz' alt='Climate Data' width='1800px' src='images/" . $outfn . "'/>";                
+    ?> 
+    
+    <a class='search' href='searcher2.php'>Search Again</a>
+    
     </body>
     
 </html>

@@ -8,14 +8,14 @@
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
         <meta http-equiv='refresh' content='900'/>
+        <link rel='stylesheet' type='text/css' href='global.css'/>
         <link rel='stylesheet' type='text/css' href='searcher2.css'/>
 		<title>Search And Graph Climate Data</title>           		
 	</head>	 
    
-    <body>       
-        <div id='header'>
-            <h1 class='dz'>Graph Climate Data</h1>
-        </div>
+    <body>               
+        <h1 class='dz'>Graph Climate Data</h1>
+        
         <br/>
         <div id='message'>
         <?php
@@ -37,12 +37,21 @@
                 </div>
                 <div id='outer3'>
                     Enter the first few characters of weather station.
+                    <br/>
+                    Good examples to try are:
+                    <br/>
+                    - Melbourne
+                    <br/>
+                    - Moscow
+                    <br/>
+                    - Amundsen
+                    <br/>
+                    - Cairns
+                    <br/>
                 </div>
                 <div id='outer4'>                    
                     <input type='submit' value='Submit' name='submit'/> 
-                </div>
-                <div id='footer'>
-                </div>
+                </div>        
             </div>   <!-- end #wrapper -->	
         </form>
     </body>
