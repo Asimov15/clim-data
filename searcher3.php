@@ -72,6 +72,7 @@
                      //fetch tha data from the database
                     while ($row[$x] = mysql_fetch_array($result)) 
                     {                        
+                        $row[$x]{'station_name'} = preg_replace('!\s+!', ' ', $row[$x]{'station_name'}); // remove duplicate spaces
                         if (strlen($row[$x]{'station_name'}) > $biggest_length)
                         {
                             $biggest_length = strlen($row[$x]{'station_name'});
@@ -82,9 +83,9 @@
                     $y = 0;
                     for ($y = 0; $y < $x; $y++)
                     {
-                        $z = $biggest_length - strlen(trim($row[$y]{'station_name'}));                                            
+                        $z = $biggest_length - strlen(trim($row[$y]{'station_name'})) + $spaces_to_add;                                            
                         
-                        $picker = $row[$y]{'station_name'} . str_repeat('&nbsp;', $z) . $row[$y]{'name'};
+                        $picker = trim($row[$y]{'station_name'}) . str_repeat('&nbsp;', $z) . $row[$y]{'name'};
                         echo "                      <option value='" . $row[$y]{'code'} . $row[$y]{'field1'} . "'>" . $picker . "</option>\n";
                     }
                     
