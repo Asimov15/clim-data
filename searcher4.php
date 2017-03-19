@@ -40,11 +40,11 @@
         
         exec($cmd, $a);        
         
-        echo "<body>        
-                    <div id='header'>
-                        <h1 class='dz'>Graph Climate Data</h1>
-                    </div>";                    
-        echo "          <img class='dz' alt='Climate Data' width='1800px' src='images/" . $outfn . "'/>";                
+        echo "<body>";        
+                //    <div id='header'>
+                  //      <h1 class='dz'>Graph Climate Data</h1>
+                   // </div>";                    
+        echo "          <img class='dz' alt='Climate Data' width='1870px' src='images/" . $outfn . "'/>";                
     ?> 
     
     <a class='search' href='searcher2.php'>Search Again</a>

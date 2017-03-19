@@ -91,8 +91,7 @@
                     echo "                  </select>\n";
                 
                     //close the connection
-                    mysql_close($dbhandle);
-            
+                    mysql_close($dbhandle);            
                 ?>
                 </div>
             
@@ -100,10 +99,7 @@
                     (Select Weather Station)
                 </div>
                 <div id='outer4'>
-                    <input type='submit' value='submit' name='submit'/>
-                </div>
-                <div id='footer'>
-                     
+                    <input class='button' type='submit' value='submit' name='submit'/>
                 </div>                
             </div><!-- end #wrapper -->	
                         

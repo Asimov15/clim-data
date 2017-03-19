@@ -50,7 +50,7 @@
                     <br/>
                 </div>
                 <div id='outer4'>                    
-                    <input type='submit' value='Submit' name='submit'/> 
+                    <input class='button' type='submit' value='Submit' name='submit'/> 
                 </div>        
             </div>   <!-- end #wrapper -->	
         </form>

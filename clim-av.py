@@ -164,7 +164,7 @@ for x in temp_tots:
 # create graph
 
 #lines
-fig2 = plt.figure(figsize=(22.0, 10.0)) # The size of the figure is specified as (width, height) in inches
+fig2 = plt.figure(figsize=(22.0, 9.5)) # The size of the figure is specified as (width, height) in inches
 
 # 7 degree line of best fit
 l1 = fig2.add_subplot(111).plot(range(365), np.poly1d(np.polyfit(range(365), avesh, 5))(range(365)), 
