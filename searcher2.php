@@ -7,9 +7,9 @@
     
 	<head>		
         <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
-        <meta http-equiv='refresh' content='900'/>
         <link rel='stylesheet' type='text/css' href='global.css'/>
         <link rel='stylesheet' type='text/css' href='searcher2.css'/>
+        <link rel='shortcut icon' href='Dapino-Summer-Holiday-Sun.ico' type='image/x-icon'>
 		<title>Search And Graph Climate Data</title>           		
 	</head>	 
    
@@ -22,10 +22,6 @@
             if (isset($_GET['message'])) 
             {
                 echo $_GET['message'];
-            }
-            else
-            {
-                // Fallback behaviour goes here
             }
         ?>
         </div>

@@ -233,15 +233,15 @@ patch = patches.PathPatch(barpath, facecolor=rain_col, edgecolor='gray', alpha=0
 ax2.add_patch(patch) 
 
 # n degree line of best fit
-l1 = ax1.plot(range(365), np.poly1d(np.polyfit(range(365), avesh, 5))(range(365)), 
-                                label="Maximums", lw=10, color=max_col, alpha=0.8)
+l1 = ax1.plot(range(365), np.poly1d(np.polyfit(range(365), avesh, 10))(range(365)), 
+                                label="Maximums", lw=10, color=max_col, alpha=1.0)
 
-l2 = ax1.plot(range(365), np.poly1d(np.polyfit(range(365), avesl, 5))(range(365)), 
-                                label="Minimums", lw=10, color=min_col, alpha=0.8)
+l2 = ax1.plot(range(365), np.poly1d(np.polyfit(range(365), avesl, 10))(range(365)), 
+                                label="Minimums", lw=10, color=min_col, alpha=1.0)
                                 
-l3 = ax1.plot(range(365), avesh, 'o', color=max_col, alpha=0.5)
+l3 = ax1.plot(range(365), avesh, 'o', color=max_col, alpha=1.0)
 
-l4 = ax1.plot(range(365), avesl, 'o', color=min_col, alpha=0.5)
+l4 = ax1.plot(range(365), avesl, 'o', color=min_col, alpha=1.0)
 
 #add legend
 red_patch  = patches.Patch(color=max_col,  label='Average Maximum Temperature')
@@ -291,11 +291,11 @@ md2 = station_data[0][1]
 md3 = station_data[0][2]
 md4 = country_data[0][0]
 
-firstp = "Average Temperatures By Day From Station At {0}, {1}".format(md1, md4)
+firstp = "Average Temperatures By Day At {0}, {1}".format(md1, md4)
 
 subtitle = "(Latitude = {0}, Longitude = {1})".format(md2, md3)
-ax1.set_title(subtitle, fontsize=14)
 plt.suptitle (firstp,   fontsize=22,   weight='heavy')
+ax1.set_title(subtitle, fontsize=14)
 
 #saving
 image = "/var/www/html/clim-data/images/" + outfn

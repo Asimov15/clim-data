@@ -55,6 +55,8 @@ for file_name in onlyfiles:
                 hl = "H"
             elif m_type == "TMIN":
                 hl = "L"
+            elif m_type == "PRCP":
+                hl = "P"
             
             if hl == " ":
                 continue
@@ -68,12 +70,11 @@ for file_name in onlyfiles:
                     temp = float(line[s_temp:e_temp])                
                     char_inc += 8                        # move to next temperature
 
-                    if temp > -1000.0 and temp < 600 and temp != 0:
+                    if ((temp > -1000.0 and temp < 600 and temp != 0) and (m_type == "TMAX" or m_type == "TMIN")) or (temp >= 0.0 and m_type == "PRCP")):
                         i += 1;
                         m_date = datetime.date(int(year), int(month), day)
                         if i < 499:
-                            data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "'), "
-                      
+                            data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "'), "                      
            
                         if i >= 499:
                             data_clim = data_clim + "('" + station + "', '" + hl + "', " + str(temp/10) + ", '" + str(m_date.isoformat()) + "');"
